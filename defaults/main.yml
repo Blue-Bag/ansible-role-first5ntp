@@ -51,7 +51,7 @@ backup_etc_files: true
 
 ntp_enabled: true
 
+ntp_leap_seconds_enabled: true
+ntp_leap_seconds_file: '/usr/share/zoneinfo/leap-seconds.list'
 
-
-
-
+ntp_interface_ignore_ipv6: true
