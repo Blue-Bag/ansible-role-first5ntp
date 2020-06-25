@@ -1,28 +1,20 @@
-
+---
 galaxy_info:
   author: "George Boobyer (forked from - René Moser)"
+  description: Install and configure NTP This role enables users to install and configure ntp on their hosts.
   company: Blue-Bag Ltd
   license: "license (BSD, MIT)"
   min_ansible_version: 1.4
   platforms:
-   - name: EL
-     versions:
-      - 5
-      - 6
-   - name: Fedora
-     versions:
-      - 16
-      - 17
-      - 18
-   - name: Ubuntu
-     versions:
-      - precise
-      - quantal
-      - raring
-      - saucy
-   - name: Debian
-     versions:
-      - wheezy
-  categories:
-   - system
+    - name: EL
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - system
 dependencies: []
