@@ -38,7 +38,7 @@
     state: absent
   become: true
   when: st.stat.islnk is defined and not st.stat.islnk
-  tags: [configuration,ntp]
+  tags: [configuration, ntp]
 
 
 - name: symlink the correct localtime - 2
@@ -46,9 +46,9 @@
     src: "/usr/share/zoneinfo/{{ ntp_timezone }}"
     dest: "/etc/localtime"
     state: link
-    force: yes
+    force: true
   become: true
-  tags: [configuration,ntp]
+  tags: [configuration, ntp]
 
 - name: update the (hardware) clock config
   lineinfile: dest=/etc/sysconfig/clock
@@ -77,11 +77,11 @@
     src: ntp.conf.j2
     dest: /etc/ntp.conf
   notify:
-  - restart ntp
+    - restart ntp
   tags: [configuration, ntp]
 
-#- name: NTP | Ensure NTP system start status is set.
-#  service:
+# - name: NTP | Ensure NTP system start status is set.
+#   service:
 #      name: "{{ ntp_daemon }}"
 #      state: "{{ ntp_service_state }}"
 #      enabled: "{{ ntp_service_enabled }}"
