@@ -94,5 +94,5 @@
   service:
     name: "{{ ntp_daemon }}"
     state: started
-    enabled: ntp_enabled
+    enabled: "{{ ntp_enabled }}"
   tags: [configuration, ntp]
