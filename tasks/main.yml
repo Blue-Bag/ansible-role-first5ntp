@@ -90,17 +90,9 @@
 #  when: ntp_enabled
 #  tags: [configuration,ntp]
 
-- name: Ensure NTP is running and enabled at system start.
-  service: >
-    name={{ ntp_daemon }}
-    state=started
-    enabled=yes
-  when: ntp_enabled
-
-- name: Ensure NTP is stopped and disabled at system start.
-  service: >
-    name={{ ntp_daemon }}
-    state=stopped
-    enabled=no
-  when: not ntp_enabled
+- name: Ensure NTP is (not)running and dis/enabled at system start.
+  service:
+    name: "{{ ntp_daemon }}"
+    state: started
+    enabled: ntp_enabled
   tags: [configuration, ntp]
