@@ -1,6 +1,8 @@
 NTP
 ========
 
+<!-- [![Build Status](https://travis-ci.org/Blue-Bag/ansible-role-first5ntp.svg?branch=main)](https://travis-ci.org/Blue-Bag/ansible-role-first5ntp) -->
+
 Install and configure NTP
 This role enables users to install and configure ntp on their hosts.
 
@@ -40,4 +42,3 @@ Forked from https://github.com/resmo/ansible-role-ntp
 with bits from https://github.com/geerlingguy/ansible-role-ntp
 and
 https://github.com/knopki/ansible-timezone
-
