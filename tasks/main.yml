@@ -25,7 +25,7 @@
   stat:
     path: '/etc/localtime'
     follow: false
-    register: st
+  register: st
   tags: [configuration, ntp]
 
 # - debug: msg="{{ st }}"
