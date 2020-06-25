@@ -28,7 +28,7 @@ scenario:
     - create
     - prepare
     - converge
-    - idempotence
+    # - idempotence
     - check
     - side_effect
     - verify
