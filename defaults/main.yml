@@ -14,14 +14,18 @@ ntp_config_server:
   - 0.debian.pool.ntp.org iburst
   - 1.debian.pool.ntp.org iburst
 
+ntp_log_dir: '/var/log/ntpsec/'
+ntp_cfg_dir: '/etc/ntpsec'
+ntp_user: 'ntpsec'
+
+ntp_config_listen: []
+
 ntp_config_restrict:
   - '-4 default notrap nomodify nopeer noquery'
   - '-6 default notrap nomodify nopeer noquery'
   - '127.0.0.1'
   - '::1'
 
-ntp_config_listen: []
-# - '127.0.0.1'
 
 ntp_lignore_ipv6: false
 

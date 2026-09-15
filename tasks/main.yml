@@ -1,7 +1,7 @@
 ---
 # tasks file for ntp
 - name: NTP | Add the OS specific variables
-  include_vars: '{{ ansible_os_family }}.yml'
+  include_vars: '{{ ansible_facts["os_family"] }}.yml'
   tags: [configuration, ntp]
 
 
@@ -14,7 +14,7 @@
     group: root
     mode: 0644
     backup: "{{ backup_etc_files }}"
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
   tags: [configuration, timezone, ntp]
   notify:
     - timezone.update
@@ -55,27 +55,51 @@
               regexp=^ZONE=
               line=ZONE={{ ntp_timezone }}
               state=present
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
   tags: [configuration, ntp]
 
 - name: NTP | Install the required packages in Redhat derivatives
   yum:
     name: ntp
     state: "{{ ntp_pkg_state }}"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts["os_family"] == 'RedHat'
   tags: [configuration, ntp]
 
 - name: NTP | Install the required packages in Debian derivatives
   apt:
     name: ntp
     state: "{{ ntp_pkg_state }}"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts["os_family"] == 'Debian'
   tags: [configuration, ntp]
+
+- name: Manual | Create the ntp log directory
+  file:
+    path: "{{ ntp_log_dir }}"
+    state: directory
+    owner: "{{ ntp_user }}"
+    group: "{{ ntp_user }}"
+    mode: 0775
+    recurse: no
+  become: true
+  tags: [aconfiguration, ntp]
+ # when: ansible_os_family == 'Debian'
+
+- name: Manual | Create the ntp conf directory
+  file:
+    path: "{{ ntp_cfg_dir }}"
+    state: directory
+    owner: "{{ ntp_user }}"
+    group: "{{ ntp_user }}"
+    mode: 0775
+    recurse: no
+  become: true
+  tags: [aconfiguration, ntp]
+ # when: ansible_os_family == 'Debian'
 
 - name: NTP | Copy the ntp.conf template file
   template:
     src: ntp.conf.j2
-    dest: /etc/ntp.conf
+    dest: "{{ ntp_cfg_dir }}/ntp.conf"
   notify:
     - restart ntp
   tags: [configuration, ntp]
