@@ -1,3 +1,19 @@
 ---
-ntp_daemon: ntp
-ntp_config_driftfile: /var/lib/ntp/ntp.drift
+ntp_daemon: ntpsec
+ntp_user: ntp
+ntp_config_driftfile: /var/lib/ntpsec/ntp.drift
+
+# Modern ntpsec hardening for Debian 12
+# We remove 'notrap' and 'nopeer' to stop the CONFIG errors
+# for trixie (Debian 13) us noserve
+# noserve: Completely denies all incoming time service packets and control queries. 
+# It effectively closes the server to the public while still allowing your 
+# node to receive time sync replies from its upstream pool.
+# Allow upstream servers/pools to return time synchronization data
+# restrict source nomodify noquery
+ntp_config_restrict:
+  - '-4 default kod nomodify noserve'
+  - '-6 default kod nomodify noserve'
+  - 'source nomodify noquery'
+  - '127.0.0.1'
+  - '::1'
