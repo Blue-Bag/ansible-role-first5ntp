@@ -67,7 +67,7 @@
 
 - name: NTP | Install the required packages in Debian derivatives
   apt:
-    name: ntp
+    name: ntpsec
     state: "{{ ntp_pkg_state }}"
   when: ansible_facts["os_family"] == 'Debian'
   tags: [configuration, ntp]
